@@ -25,7 +25,7 @@ namespace _03_ByteBank
             Console.WriteLine("Igualdade de tipo referência:" + (contaDaGabriela == contaDaGabrielaCosta));
 
             //nesse caso é guardado o valor e nao a referencia,
-            //por isso na comparação os dois valores retorna True
+            //por isso na comparação os dois valores retornam True
             int idade = 27;
             int idadeMaisUmaVez = 27;
 
@@ -38,6 +38,13 @@ namespace _03_ByteBank
             contaDaGabriela.saldo = 300;
             Console.WriteLine(contaDaGabriela.saldo);
             Console.WriteLine(contaDaGabrielaCosta.saldo);
+
+            if(contaDaGabriela.saldo >= 100)
+            {
+                contaDaGabriela.saldo -= 100;
+            }
+
+            contaDaGabriela.saldo -= 100;
             
             Console.ReadLine();
         }
