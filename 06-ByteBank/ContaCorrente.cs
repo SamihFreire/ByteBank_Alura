@@ -1,4 +1,4 @@
-﻿//using _05_ByteBank; --Tornas-se desnecessário a utilização desse using pois ja foi defenido: namespace _06_ByteBank
+﻿//using _06_ByteBank; --Tornas-se desnecessário a utilização desse using pois ja foi defenido: namespace _06_ByteBank
 
 namespace _06_ByteBank
 {
