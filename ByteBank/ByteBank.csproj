@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8344237F-B2DB-451B-BD67-2012C56D1628}</ProjectGuid>
+    <ProjectGuid>{9E36DD2A-EA4C-441E-8497-243B16B1D4BC}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_07_ByteBank</RootNamespace>
-    <AssemblyName>07-ByteBank</AssemblyName>
+    <RootNamespace>ByteBank</RootNamespace>
+    <AssemblyName>ByteBank</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
