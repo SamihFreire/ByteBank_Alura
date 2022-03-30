@@ -1,4 +1,6 @@
-﻿using System.Net.NetworkInformation;
+﻿using ByteBank;
+using System;
+using System.Net.NetworkInformation;
 
 namespace _07_ByteBank
 {
@@ -9,23 +11,9 @@ namespace _07_ByteBank
         public Cliente Titular { get; set; }       
         public static int TotalDeContasCriadas { get; private set; }
 
-        private int _agencia;
-        public int Agencia 
-        {
-            get
-            {
-                return _agencia;
-            }
-            set
-            {
-                if(value <= 0)
-                {
-                    return;
-                }
-                _agencia = value;
-            }
-        }
-        public int Numero { get; set; }
+        public int Agencia { get;  }
+
+        public int Numero { get; } //Aqui temos apenas o GET onde o SET se torna apenas de leitura, ou definido como READONLY, sendo visivel apenas no CONSTRUTOR
 
         private double _saldo = 100;
 
@@ -47,33 +35,37 @@ namespace _07_ByteBank
 
         public ContaCorrente(int agencia, int numero)
         {
+            if(agencia <= 0)
+            {
+                //string texto = nameof(numeroAgencia);  // string texto esta recebendo a string "numeroAgencia";
+
+                throw new ArgumentException("O argumento agencia deve ser maior que 0.", nameof(agencia));
+            }
+            if(numero<= 0)
+            {
+                throw new ArgumentException("O argumento numero deve ser maior que 0.", nameof(numero));
+            }
+
             Agencia = agencia;
             Numero = numero;
 
-            try
-            {
-                TaxaOperacao = 30 / TotalDeContasCriadas;
-            }
-            catch (System.Exception erro)
-            {
-
-                System.Console.WriteLine(erro.Message);
-
-            }
-
-            
-
             TotalDeContasCriadas++;
+            
+            TaxaOperacao = 30 / TotalDeContasCriadas;
         }
 
-        public bool Sacar(double valor)
+        public void Sacar(double valor)
         {
+            if(valor < 0)
+            {
+                throw new ArgumentException("Valor inválido para o saque.", nameof(valor));
+            }
+
             if(this._saldo < valor)
             {
-                return false;
+                throw new SaldoInsuficienteException(Saldo, valor);
             }
             this._saldo -= valor;
-            return true;
         }
 
         public void Depositar(double valor)
@@ -81,15 +73,16 @@ namespace _07_ByteBank
             this._saldo += valor;
         }
 
-        public bool Transferir(double valor, ContaCorrente contaDestino)
+        public void Transferir(double valor, ContaCorrente contaDestino)
         {
-            if(this._saldo < valor)
+            if (valor < 0)
             {
-                return false;
+                throw new ArgumentException("Valor inválido para a transferência.", nameof(valor));
             }
-            this._saldo -= valor;
+
+            Sacar(valor);
+
             contaDestino.Depositar(valor);
-            return true;
         }
     }
 }
