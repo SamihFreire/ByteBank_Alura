@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ByteBank
 {
-    public class SaldoInsuficienteException : Exception  //Criando uma classe de exceção
+    public class SaldoInsuficienteException : OperacaoFinanceiraException  //Criando uma classe de exceção
     {
         public double Saldo { get; }
         public double ValorSaque { get; set; }
@@ -16,6 +16,9 @@ namespace ByteBank
         {
 
         }
+
+        public SaldoInsuficienteException(string menssagem, Exception excecaoInterna) : base(menssagem, excecaoInterna) { }
+
                                                                                 //Passando para o contrutor dessa classe a mensagem, + poderia passar direto para a BASE
         public SaldoInsuficienteException(double saldo, double valorSaque) : this("Tentativa de saque do valor de " + valorSaque + " em uma conta com saldo de " + saldo)
         {

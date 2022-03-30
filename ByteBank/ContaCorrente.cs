@@ -11,6 +11,9 @@ namespace _07_ByteBank
         public Cliente Titular { get; set; }       
         public static int TotalDeContasCriadas { get; private set; }
 
+        public int ContadorSaquesNaoPermitidos { get; private set; }
+        public int ContadorTransferenciaNaoPermitidas { get; private set; }
+
         public int Agencia { get;  }
 
         public int Numero { get; } //Aqui temos apenas o GET onde o SET se torna apenas de leitura, ou definido como READONLY, sendo visivel apenas no CONSTRUTOR
@@ -63,6 +66,7 @@ namespace _07_ByteBank
 
             if(this._saldo < valor)
             {
+                ContadorSaquesNaoPermitidos++;
                 throw new SaldoInsuficienteException(Saldo, valor);
             }
             this._saldo -= valor;
@@ -80,7 +84,16 @@ namespace _07_ByteBank
                 throw new ArgumentException("Valor inválido para a transferência.", nameof(valor));
             }
 
-            Sacar(valor);
+            try
+            {
+                Sacar(valor);
+            }
+            catch (SaldoInsuficienteException ex)
+            {
+                ContadorTransferenciaNaoPermitidas++;
+                throw new OperacaoFinanceiraException("Operação nao realizada.", ex);
+            }
+            
 
             contaDestino.Depositar(valor);
         }
